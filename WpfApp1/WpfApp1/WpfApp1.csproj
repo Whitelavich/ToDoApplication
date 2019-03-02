@@ -65,8 +65,8 @@
     <Compile Include="newListWindow.xaml.cs">
       <DependentUpon>newListWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="newToDoWindo.xaml.cs">
-      <DependentUpon>newToDoWindo.xaml</DependentUpon>
+    <Compile Include="newToDoWindow.xaml.cs">
+      <DependentUpon>newToDoWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -88,7 +88,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="newToDoWindo.xaml">
+    <Page Include="newToDoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
