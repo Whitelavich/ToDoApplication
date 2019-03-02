@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="New To-Do" Height="206.25" Width="277.344">
+        Title="New To-Do" Height="233.25" Width="277.344">
     <Grid>
         <Label Content="Name" HorizontalAlignment="Left" Margin="50,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Decription: " HorizontalAlignment="Left" Margin="50,41,0,0" VerticalAlignment="Top"/>
@@ -17,6 +17,7 @@
         <TextBox x:Name="longtitudeText" HorizontalAlignment="Left" Height="23" Margin="119,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="dueDateLabel" Content="Due Date: " HorizontalAlignment="Left" Margin="50,134,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="dueDateText" HorizontalAlignment="Left" Height="23" Margin="121,134,0,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Margin="121,162,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>
