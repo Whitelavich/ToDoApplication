@@ -14,10 +14,10 @@
         <TextBox x:Name="nameText" HorizontalAlignment="Left" Height="23" Margin="97,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="descriptionText" HorizontalAlignment="Left" Height="23" Margin="126,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="latitudeText" HorizontalAlignment="Left" Height="23" Margin="108,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="longtitudeText" HorizontalAlignment="Left" Height="23" Margin="119,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="longitudeText" HorizontalAlignment="Left" Height="23" Margin="119,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="dueDateLabel" Content="Due Date: " HorizontalAlignment="Left" Margin="50,134,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="dueDateText" HorizontalAlignment="Left" Height="23" Margin="121,134,0,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Margin="121,162,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Margin="121,162,0,0" VerticalAlignment="Top" Width="75" Click="SaveButton_Click"/>
 
     </Grid>
 </Window>

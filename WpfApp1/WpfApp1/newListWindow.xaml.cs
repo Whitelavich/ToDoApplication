@@ -32,6 +32,7 @@ namespace WpfApp1
             if (nameText.Text != null || nameText.Text != "") {
                 DatabaseHelper.openDatabaseConnection();
                 DatabaseHelper.performNonQuery($"INSERT INTO todo.list(name) VALUES ({nameText.Text})", new SqlParameter[] {});
+                DatabaseHelper.closeDatabaseConnection();
             }
         } 
     }
