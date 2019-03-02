@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Munchies.Static
+namespace ToDo.Static
 {
     public static class DatabaseHelper
     {

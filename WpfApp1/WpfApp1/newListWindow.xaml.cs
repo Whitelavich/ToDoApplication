@@ -11,7 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using ToDo.Static;
+using System.Data.SqlClient;
 namespace WpfApp1
 {
     /// <summary>
@@ -19,9 +20,19 @@ namespace WpfApp1
     /// </summary>
     public partial class Window2 : Window
     {
+        public int userID = 0;
+
         public Window2()
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (nameText.Text != null || nameText.Text != "") {
+                DatabaseHelper.openDatabaseConnection();
+                DatabaseHelper.performNonQuery($"INSERT INTO todo.list(name) VALUES ({nameText.Text})", new SqlParameter[] {});
+            }
+        } 
     }
 }
