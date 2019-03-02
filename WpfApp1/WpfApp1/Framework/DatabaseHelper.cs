@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
 namespace ToDo.Static
 {
@@ -18,11 +12,10 @@ namespace ToDo.Static
 
         }
 
-
         public static void openDatabaseConnection()
         {
             dbConnection = new SqlConnection();
-            dbConnection.ConnectionString = "Data Source=munchies.ci817zs9fbxu.us-east-1.rds.amazonaws.com;Initial Catalog=Munchies;Persist Security Info=True;User ID=esda98;Password=Goldpod663!";
+            dbConnection.ConnectionString = "Data Source=secure-todo.ci817zs9fbxu.us-east-1.rds.amazonaws.com;Initial Catalog=todo;Persist Security Info=True;User ID=cit368;Password=todo-cit368!";
             dbConnection.Open();
         }
         public static void closeDatabaseConnection()

@@ -20,6 +20,8 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        public long userID;
+
         public MainWindow()
         {
             InitializeComponent();
