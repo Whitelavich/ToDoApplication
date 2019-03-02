@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Calendar x:Name="calView" HorizontalAlignment="Left" Margin="498,110,0,0" VerticalAlignment="Top" Height="174" Width="184" RenderTransformOrigin="0.5,0.5">
             <Calendar.Effect>
@@ -20,7 +20,7 @@
                 </TransformGroup>
             </Calendar.RenderTransform>
         </Calendar>
-        <ListView HorizontalAlignment="Left" Height="321" Margin="10,33,0,0" VerticalAlignment="Top" Width="363">
+        <ListView x:Name="lstLists" HorizontalAlignment="Left" Height="321" Margin="10,33,0,0" VerticalAlignment="Top" Width="363">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
