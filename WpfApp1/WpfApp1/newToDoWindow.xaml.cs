@@ -18,11 +18,11 @@ namespace WpfApp1
     /// <summary>
     /// Interaction logic for Window3.xaml
     /// </summary>
-    public partial class Window3 : Window
+    public partial class NewTodoWindow : Window
     {
-        public int userID = 0;
-        public int listId = 0;
-        public Window3()
+        public long userID = 0;
+        public long listId = 0;
+        public NewTodoWindow()
         {
             InitializeComponent();
         }
@@ -35,11 +35,20 @@ namespace WpfApp1
                 && longitudeText.Text != null || longitudeText.Text != "" 
                 && dueDateText.Text != null || dueDateText.Text != "")
             {
+                if (DateTime.Parse(dueDateText.Text) == null)
+                {
+                    MessageBox.Show("invalid date provided");
+                    return;
+                }
                 DatabaseHelper.openDatabaseConnection();
-                DatabaseHelper.performNonQuery($"INSERT INTO todo.task(list_id,name,description,is_completed,loc_lat,loc_long,due_date)" +
-                    $" VALUES({listId}, {nameText.Text} ,{ descriptionText.Text} ,FALSE,{latitudeText.Text},{longitudeText.Text},{dueDateText.Text } )",new SqlParameter[] { });
+                DatabaseHelper.performNonQuery($"INSERT INTO todo.task(list_id,name,description,is_completed,loc_lat,loc_long,due_date) VALUES ({listId}, '{nameText.Text}' ,'{descriptionText.Text}',0,{latitudeText.Text},{longitudeText.Text},'{DateTime.Parse(dueDateText.Text)}')",new SqlParameter[] { });
             
                 DatabaseHelper.closeDatabaseConnection();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Missing a field");
             }
         }
     }

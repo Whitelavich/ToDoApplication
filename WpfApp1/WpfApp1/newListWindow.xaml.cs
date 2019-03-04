@@ -18,11 +18,11 @@ namespace WpfApp1
     /// <summary>
     /// Interaction logic for Window2.xaml
     /// </summary>
-    public partial class Window2 : Window
+    public partial class NewListWindow : Window
     {
-        public int userID = 0;
+        public long userID = 0;
 
-        public Window2()
+        public NewListWindow()
         {
             InitializeComponent();
         }
@@ -31,8 +31,9 @@ namespace WpfApp1
         {
             if (nameText.Text != null || nameText.Text != "") {
                 DatabaseHelper.openDatabaseConnection();
-                DatabaseHelper.performNonQuery($"INSERT INTO todo.list(name) VALUES ({nameText.Text})", new SqlParameter[] {});
+                DatabaseHelper.performNonQuery($"INSERT INTO todo.list(user_id, name) VALUES ({userID},'{nameText.Text}')", new SqlParameter[] {});
                 DatabaseHelper.closeDatabaseConnection();
+                Close();
             }
         } 
     }

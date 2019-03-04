@@ -6,17 +6,24 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="Log-In" Height="280.078" Width="232.812" Loaded="Window_Loaded">
-    <Grid Margin="0,0,0,50">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="35"/>
+            <RowDefinition />
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="usernameLabel" Content="Username: " HorizontalAlignment="Left" Margin="22,39,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="passwordLabel" Content="Password: " HorizontalAlignment="Left" Margin="22,103,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.624,-0.618"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="0" Margin="485,245,-268,0" VerticalAlignment="Top" Width="8"/>
-        <TextBox x:Name="usernameText" HorizontalAlignment="Left" Height="23" Margin="95,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <PasswordBox x:Name="passwordText" HorizontalAlignment="Left" Margin="95,103,0,0" VerticalAlignment="Top" Height="26" Width="120"/>
-        <Button x:Name="loginButton" Content="Log-in" HorizontalAlignment="Left" Margin="22,168,0,0" VerticalAlignment="Top" Width="75" Click="LoginButton_Click"/>
-        <Button x:Name="Register_Button" Content="Register" HorizontalAlignment="Left" Margin="126,168,0,0" VerticalAlignment="Top" Width="75" Click="Register_Button_Click"/>
+        <Label x:Name="usernameLabel" Content="Username: " HorizontalAlignment="Stretch" VerticalAlignment="Bottom" VerticalContentAlignment="Center" />
+        <Label x:Name="passwordLabel" Grid.Row="2" Content="Password: " HorizontalAlignment="Stretch" VerticalAlignment="Bottom" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="usernameText" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5"/>
+        <PasswordBox x:Name="passwordText" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25" Margin="5"/>
+        <Button x:Name="loginButton" Grid.Row="4" Content="Log-in" HorizontalAlignment="Stretch" Height="30" Click="LoginButton_Click" Margin="5,50,5,5"/>
+        <Button x:Name="Register_Button" Grid.Row="5" Grid.Column="1" Content="Register" HorizontalAlignment="Stretch" Height="30"  Margin="5,50,5,5" Click="Register_Button_Click"/>
         <Label x:Name="fyiText" Content="" HorizontalAlignment="Left" Margin="22,137,0,0" VerticalAlignment="Top" Width="193"/>
 
     </Grid>
