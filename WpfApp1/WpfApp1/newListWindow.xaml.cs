@@ -29,6 +29,7 @@ namespace WpfApp1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //when list name is valid, add it to the database for this user
             if (nameText.Text != null || nameText.Text != "") {
                 DatabaseHelper.openDatabaseConnection();
                 DatabaseHelper.performNonQuery($"INSERT INTO todo.list(user_id, name) VALUES ({userID},'{nameText.Text}')", new SqlParameter[] {});

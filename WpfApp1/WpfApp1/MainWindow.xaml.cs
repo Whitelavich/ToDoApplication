@@ -24,7 +24,6 @@ namespace WpfApp1
     {
         public long userID;
         public List<long> listIDs = new List<long>();
-        public List<long> taskIDs = new List<long>();
 
         public MainWindow()
         {
@@ -33,11 +32,13 @@ namespace WpfApp1
 
         private void BtnNewTodo_Click(object sender, RoutedEventArgs e)
         {
+            //ensure a list was selected
             if (lstLists.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a list to add a todo for");
                 return;
             }
+            //display new todo creation window as dialog
             var newTodoWindow = new NewTodoWindow();
             newTodoWindow.userID = userID;
             newTodoWindow.listId = listIDs[lstLists.SelectedIndex];
@@ -46,6 +47,7 @@ namespace WpfApp1
 
         private void BtnNewList_Click(object sender, RoutedEventArgs e)
         {
+            //display new list creation window as dialog
             var newListWindow = new NewListWindow();
             newListWindow.userID = userID;
             newListWindow.ShowDialog();
@@ -53,10 +55,13 @@ namespace WpfApp1
 
         private void Window_Activated(object sender, EventArgs e)
         {
+            //refresh todo lists when the window is activated (shown)
             lstLists.Items.Clear();
+            listIDs.Clear();
             DatabaseHelper.openDatabaseConnection();
             var result = DatabaseHelper.getReaderForQuery("Select * From todo.list Where user_id = " + userID, new SqlParameter[] { });
             if (result == null) { return; }
+            //add all lists to the list view
             while (result.Read())
             {
                 lstLists.Items.Add(result["name"]);
@@ -68,70 +73,38 @@ namespace WpfApp1
 
         private void LstLists_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //clear todos from previous list selection
             stkTodos.Children.Clear();
-            taskIDs.Clear();
             if (lstLists.SelectedIndex == -1) { return; }
             DatabaseHelper.openDatabaseConnection();
+            //get all todos for this list
             var result = DatabaseHelper.getReaderForQuery($"SELECT * FROM todo.Task WHERE list_id={listIDs[lstLists.SelectedIndex]}", new SqlParameter[] { });
             if (result == null) { return; }
+            //put all todos on stackpanel
             while (result.Read())
             {
-                var todoCheck = new CheckBox();
-                todoCheck.Content = $"{result["name"]} at location ({result["loc_lat"]}, {result["loc_long"]}) due {((DateTime)result["due_date"]).ToShortDateString()}";
-                todoCheck.IsChecked = (bool)result["is_completed"];
-                todoCheck.Checked += new RoutedEventHandler(todoChecked);
-                todoCheck.Unchecked += new RoutedEventHandler(todoUnchecked);
+                //create UserControl instance to display the task (usercontrol gives delete button)
+                var displayName = $"{(string)result["name"]} at ({(decimal)result["loc_lat"]}, {(decimal)result["loc_long"]}) due {((DateTime)result["due_date"]).ToShortDateString()}";
+                var todoCheck = new UserControls.Task((long)result["id"], displayName, (bool)result["is_completed"]);
                 stkTodos.Children.Add(todoCheck);
-                taskIDs.Add((long)result["id"]);
             }
             result.Close();
             DatabaseHelper.closeDatabaseConnection();
         }
 
-        private void todoChecked(object sender, EventArgs args)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //find index of this check box in the stack
-            var found = false;
-            var index = 0;
-            foreach (var child in stkTodos.Children)
-            {
-                if (child == sender)
-                {
-                    found = true;
-                    break;
-                }
-                index++; 
-            }
-            if (!found)
-            {
-                return;
-            }
-            DatabaseHelper.openDatabaseConnection();
-            DatabaseHelper.performNonQuery("UPDATE todo.task SET is_completed = 1 WHERE id = " + taskIDs[index], new SqlParameter[] { });
-            DatabaseHelper.closeDatabaseConnection();
+            //Destroy this window and show the login window again
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            Close();
         }
 
-        private void todoUnchecked(object sender, EventArgs args)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            //find index of this check box in the stack
-            var found = false;
-            var index = 0;
-            foreach (var child in stkTodos.Children)
-            {
-                if (child == sender)
-                {
-                    found = true;
-                    break;
-                }
-                index++;
-            }
-            if (!found)
-            {
-                return;
-            }
-            DatabaseHelper.openDatabaseConnection();
-            DatabaseHelper.performNonQuery("UPDATE todo.task SET is_completed = 0 WHERE id = " + taskIDs[index], new SqlParameter[] { });
-            DatabaseHelper.closeDatabaseConnection();
+            //display the edit user window as a dialog
+            var editUser = new EditUser(userID);
+            editUser.ShowDialog();
         }
     }
 }

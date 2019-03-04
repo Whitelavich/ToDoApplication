@@ -29,20 +29,22 @@ namespace WpfApp1
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            //ensure controls are valid
             if (nameText.Text != null || nameText.Text != "" 
                 && descriptionText.Text != null || descriptionText.Text != "" 
                 && latitudeText.Text != null || latitudeText.Text != "" 
                 && longitudeText.Text != null || longitudeText.Text != "" 
                 && dueDateText.Text != null || dueDateText.Text != "")
             {
+                //ensure datetime is a parseable date 
                 if (DateTime.Parse(dueDateText.Text) == null)
                 {
                     MessageBox.Show("invalid date provided");
                     return;
                 }
+                //add task to this list
                 DatabaseHelper.openDatabaseConnection();
                 DatabaseHelper.performNonQuery($"INSERT INTO todo.task(list_id,name,description,is_completed,loc_lat,loc_long,due_date) VALUES ({listId}, '{nameText.Text}' ,'{descriptionText.Text}',0,{latitudeText.Text},{longitudeText.Text},'{DateTime.Parse(dueDateText.Text)}')",new SqlParameter[] { });
-            
                 DatabaseHelper.closeDatabaseConnection();
                 Close();
             }

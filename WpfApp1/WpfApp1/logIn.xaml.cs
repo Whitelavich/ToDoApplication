@@ -7,9 +7,9 @@ namespace WpfApp1
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class LoginWindow : Window
     {
-        public Window1()
+        public LoginWindow()
         {
             InitializeComponent();
         }
@@ -21,27 +21,38 @@ namespace WpfApp1
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             DatabaseHelper.openDatabaseConnection();
+            //get all users from the database
             var result = DatabaseHelper.getReaderForQuery("Select * From todo.user_profile", new SqlParameter[] { });
             while (result.Read())
             {
+                //find a match for the email
                 string userEmail = (string)result["email"];
                 if (userEmail == usernameText.Text)
                 {
+                    //check if this matched email has the same password too
                     if((string) result["password"] == passwordText.Password)
                     {
+                        //matched, get the user id out
                         var window = new MainWindow();
                         long resultID = (long) result["id"];
                         window.userID = resultID;
+                        //display the Main view for this user
                         window.Show();
+                        result.Close();
+                        DatabaseHelper.closeDatabaseConnection();
                         Close();
+                        return;
                     }
                 }
             }
+            //not found, close database items and inform user
             result.Close();
             DatabaseHelper.closeDatabaseConnection();
+            MessageBox.Show("Could not find a user with the given credentials");
         }
         private void Register_Button_Click(object sender, RoutedEventArgs e)
         {
+            //ensure the user does not already exist
             bool isFound = false;
             DatabaseHelper.openDatabaseConnection();
             var result = DatabaseHelper.getReaderForQuery("Select * From todo.user_profile", new SqlParameter[] { });
@@ -50,22 +61,25 @@ namespace WpfApp1
                 string userEmail = (string) result["email"];
                 if(userEmail == usernameText.Text)
                 {
-                    fyiText.Content = "This email already exists: Would you like to login instead?";
+                    MessageBox.Show("User for this email already exists");
                     isFound = true;
                     break;
                 }
             }
             result.Close();
-
+            //ensure the record was not found
             if (!isFound)
             {
+                //ensure a password was entered
                 if (passwordText.Password.Length == 0)
                 {
-                    fyiText.Content = "Please enter a password";
+                    MessageBox.Show("Please Enter a password");
                 }
                 else
                 {
+                    //insert this user into the database
                     DatabaseHelper.performNonQuery(string.Format("Insert into todo.user_profile (email, password) Values ('{0}', '{1}')", usernameText.Text, passwordText.Password), new SqlParameter[] { });
+                    MessageBox.Show("Successful Registration, please log in");
                 }
             }
             DatabaseHelper.closeDatabaseConnection();
