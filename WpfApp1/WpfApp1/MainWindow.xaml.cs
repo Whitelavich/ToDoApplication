@@ -59,7 +59,7 @@ namespace WpfApp1
             lstLists.Items.Clear();
             listIDs.Clear();
             DatabaseHelper.openDatabaseConnection();
-            var result = DatabaseHelper.getReaderForQuery("Select * From todo.list Where user_id = " + userID, new SqlParameter[] { });
+            var result = DatabaseHelper.getReaderForQuery("Select * From todo.list Where user_id = @userId", new SqlParameter[] { new SqlParameter("@userId", userID)});
             if (result == null) { return; }
             //add all lists to the list view
             while (result.Read())
@@ -78,7 +78,7 @@ namespace WpfApp1
             if (lstLists.SelectedIndex == -1) { return; }
             DatabaseHelper.openDatabaseConnection();
             //get all todos for this list
-            var result = DatabaseHelper.getReaderForQuery($"SELECT * FROM todo.Task WHERE list_id={listIDs[lstLists.SelectedIndex]}", new SqlParameter[] { });
+            var result = DatabaseHelper.getReaderForQuery($"SELECT * FROM todo.Task WHERE list_id={listIDs[lstLists.SelectedIndex]}", new SqlParameter[] {});
             if (result == null) { return; }
             //put all todos on stackpanel
             while (result.Read())
