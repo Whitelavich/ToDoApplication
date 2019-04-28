@@ -32,7 +32,8 @@ namespace WpfApp1
             //when list name is valid, add it to the database for this user
             if (nameText.Text != null || nameText.Text != "") {
                 DatabaseHelper.openDatabaseConnection();
-                DatabaseHelper.performNonQuery($"INSERT INTO todo.list(user_id, name) VALUES ({userID},'{nameText.Text}')", new SqlParameter[] {});
+                DatabaseHelper.performNonQuery($"INSERT INTO todo.list(user_id, name) VALUES (@userId,@name)", new SqlParameter[] {new SqlParameter("@userId", userID),
+                   new SqlParameter("@name",nameText.Text) });
                 DatabaseHelper.closeDatabaseConnection();
                 Close();
             }
