@@ -22,6 +22,8 @@ namespace WpfApp1
         {
             DatabaseHelper.openDatabaseConnection();
             //get all users from the database
+
+            //Pls fix :)
             var result = DatabaseHelper.getReaderForQuery("Select * From todo.user_profile", new SqlParameter[] { });
             while (result.Read())
             {
@@ -78,7 +80,7 @@ namespace WpfApp1
                 else
                 {
                     //insert this user into the database
-                    DatabaseHelper.performNonQuery(string.Format("Insert into todo.user_profile (email, password) Values ('{0}', '{1}')", usernameText.Text, passwordText.Password), new SqlParameter[] { });
+                    DatabaseHelper.performNonQuery("Insert into todo.user_profile (email, password) Values ('@username', '@password')",new SqlParameter[] {new SqlParameter("@username", usernameText.Text),new SqlParameter("@password", passwordText.Password) });
                     MessageBox.Show("Successful Registration, please log in");
                 }
             }
