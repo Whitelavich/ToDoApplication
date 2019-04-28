@@ -29,7 +29,7 @@ namespace WpfApp1
             userID = givenUserID;
             //get user profile information
             DatabaseHelper.openDatabaseConnection();
-            var reader = DatabaseHelper.getReaderForQuery("SELECT * FROM todo.user_profile WHERE id = " + userID, new SqlParameter[] { });
+            var reader = DatabaseHelper.getReaderForQuery("SELECT * FROM todo.user_profile WHERE id = @userId" , new SqlParameter[] { new SqlParameter("@userId", userID)});
             if (reader == null) { return; }
             reader.Read();
             //display
@@ -42,7 +42,8 @@ namespace WpfApp1
         {
             //update record in database
             DatabaseHelper.openDatabaseConnection();
-            DatabaseHelper.performNonQuery($"UPDATE todo.user_profile SET email='{txtEmail.Text}', password = '{txtPassword.Password}' WHERE id={userID}", new SqlParameter[] { });
+            DatabaseHelper.performNonQuery($"UPDATE todo.user_profile SET email=@email, password = @pass WHERE id=@userId", 
+                new SqlParameter[] { new SqlParameter("@email", txtEmail.Text), new SqlParameter("@pass", txtPassword.Password), new SqlParameter("@userId", userID)});
             DatabaseHelper.closeDatabaseConnection();
             //close this dialog
             Close();
