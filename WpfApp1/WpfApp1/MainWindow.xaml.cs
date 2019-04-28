@@ -78,7 +78,7 @@ namespace WpfApp1
             if (lstLists.SelectedIndex == -1) { return; }
             DatabaseHelper.openDatabaseConnection();
             //get all todos for this list
-            var result = DatabaseHelper.getReaderForQuery($"SELECT * FROM todo.Task WHERE list_id={listIDs[lstLists.SelectedIndex]}", new SqlParameter[] {});
+            var result = DatabaseHelper.getReaderForQuery($"SELECT * FROM todo.Task WHERE list_id=@id", new SqlParameter[] {new SqlParameter("@id", listIDs[lstLists.SelectedIndex])});
             if (result == null) { return; }
             //put all todos on stackpanel
             while (result.Read())
