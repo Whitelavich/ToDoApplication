@@ -44,7 +44,10 @@ namespace WpfApp1
                 }
                 //add task to this list
                 DatabaseHelper.openDatabaseConnection();
-                DatabaseHelper.performNonQuery($"INSERT INTO todo.task(list_id,name,description,is_completed,loc_lat,loc_long,due_date) VALUES ({listId}, '{nameText.Text}' ,'{descriptionText.Text}',0,{latitudeText.Text},{longitudeText.Text},'{DateTime.Parse(dueDateText.Text)}')",new SqlParameter[] { });
+                DatabaseHelper.performNonQuery(@"INSERT INTO todo.task(list_id,name,description,is_completed,loc_lat,loc_long,due_date) 
+VALUES (@listid, @name ,@description,@isCompleted,@latitude,@longitude,@dueDate)}')"
+,new SqlParameter[] {new SqlParameter ("@listId",listId),new SqlParameter("@name",nameText.Text),new SqlParameter("@description",descriptionText.Text),new SqlParameter("@isCompleted",0), new SqlParameter("@latitude",latitudeText.Text)
+,new SqlParameter("@longitude",longitudeText.Text),new SqlParameter("@dueDate",DateTime.Parse(dueDateText.Text))});
                 DatabaseHelper.closeDatabaseConnection();
                 Close();
             }
